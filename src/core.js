@@ -41,7 +41,7 @@ function getCodeMetrics(filename, source, options={}) {
   let metricsForFile = MetricsParser.getMetricsFromText(filename,
     source,
     MetricsConfiguration)
-  require('fs').writeFileSync('./demo/a.json', JSON.stringify(metricsForFile.metrics.children,null,2))
+
   parse(metricsForFile.metrics.children)
 
   if(logs.messages.length > 0){
