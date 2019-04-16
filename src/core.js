@@ -9,7 +9,8 @@ function getType(item) {
     'Class declaration': 'class',
     'Function declaration': 'function',
     'Function expression': 'function',
-    'Method declaration': 'function'
+    'Method declaration': 'function',
+    'Arrow function': 'function'
   }
   return maps[item.description]
 }
@@ -18,8 +19,8 @@ function getType(item) {
 function log(limit) {
   let messages = []
   return {
-    error: function (complexity, filename, functionName) {
-      let message = (`at ${filename}, function "${functionName}", 
+    error: function (complexity, filename, functionName, line, column) {
+      let message = (`at ${filename}:${line}:${column}, function "${functionName}", 
       Code complexity ${complexity} is over ${limit}, you must consider refactoring code.
       `)
       messages.push({
@@ -64,7 +65,8 @@ function getCodeMetrics(filename, source, options={}) {
         if (item.children.length > 0) {
           let _complexity = parse(item.children, true)
           if (_complexity > options.errorLimit) {
-            logs.error(_complexity, filename, children[index - 1].text)
+            let child = children[index - 1];
+            logs.error(_complexity, filename, child.text, child.line, child.column)
           }
         }
       } else if (needTotal) {

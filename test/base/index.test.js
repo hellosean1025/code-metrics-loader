@@ -51,3 +51,26 @@ test('functionNested', t=>{
   t.is(result.data[0].complexity, 10)
   t.is(result.data[1].complexity, 7)
 })
+
+test('arrow function', t=>{
+  let filename = path.resolve(__dirname, 'functionArrow.js')
+  let content = fs.readFileSync(filename).toString()
+  let result = getCodeMetrics(filename, content, {
+    errorLimit: 5
+  })
+
+  t.is(result.code, 400)
+  t.is(result.data.length, 2)
+  t.is(result.data[0].complexity, 10)
+  t.is(result.data[1].complexity, 7)
+})
+
+test('reactClass', t=>{
+  let filename = path.resolve(__dirname, 'reactClass.js')
+  let content = fs.readFileSync(filename).toString()
+  let result = getCodeMetrics(filename, content, {
+    errorLimit: 30
+  })
+  t.is(result.code, 400)
+  t.is(result.data.length, 1)
+})
