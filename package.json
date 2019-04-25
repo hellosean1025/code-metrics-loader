@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "dependencies": {
     "loader-utils": "^1.2.3",
+    "lodash": "^4.17.11",
     "schema-utils": "^1.0.0",
     "tsmetrics-core": "^1.0.0",
     "typescript": "^3.0.1"
